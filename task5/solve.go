@@ -23,19 +23,19 @@ var(
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", AddURL).Methods("POST")
-	r.HandleFunc("/{key}", GetURL)/*.Methods("GET")*/ //Фигурные скобки означают переменную
+	r.HandleFunc("/{key}", GetURL)/*.Methods("GET")*/ //Р¤РёРіСѓСЂРЅС‹Рµ СЃРєРѕР±РєРё РѕР·РЅР°С‡Р°СЋС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	http.ListenAndServe(":8082", r)
 }
 
 func AddURL(w http.ResponseWriter, r *http.Request) {
-	//r - переданный запрос
-	//w - ответ
+	//r - РїРµСЂРµРґР°РЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ
+	//w - РѕС‚РІРµС‚
 	var MyLongUrl LongUrl
-	json.NewDecoder(r.Body).Decode(&MyLongUrl) // записали в itemAdd информацию из json-строки
+	json.NewDecoder(r.Body).Decode(&MyLongUrl) // Р·Р°РїРёСЃР°Р»Рё РІ itemAdd РёРЅС„РѕСЂРјР°С†РёСЋ РёР· json-СЃС‚СЂРѕРєРё
 
 	var MyShortUrl ShortUrl
 	MyShortUrl.Key = strconv.Itoa(keyId)
-	URLStore[keyId] = MyLongUrl.Url //записали URL в мэпу
+	URLStore[keyId] = MyLongUrl.Url //Р·Р°РїРёСЃР°Р»Рё URL РІ РјСЌРїСѓ
 	keyId += 1
 
 	json.NewEncoder(w).Encode(&MyShortUrl)
